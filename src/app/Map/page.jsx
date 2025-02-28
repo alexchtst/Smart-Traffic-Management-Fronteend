@@ -1,8 +1,11 @@
 import React from 'react'
+import Map from '../../components/map'
 
 const Page = () => {
   return (
-    <div>Page</div>
+    <div className='relative z-0 h-screen'>
+      <Map />
+    </div>
   )
 }
 

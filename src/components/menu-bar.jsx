@@ -24,12 +24,15 @@ export function CustomMenuBar() {
         </MenubarTrigger>
       </MenubarMenu>
       {/* AI */}
-      {/* Traffic Light | Historcal | Emergency */}
+      {/* Traffic Light | Historcal */}
       <MenubarMenu>
         <MenubarTrigger>AI</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>
-            <Link href='/AI/TraficLight'>Traffic Light</Link>
+          <MenubarItem asChild>
+            {/* masih ada bug disini */}
+            <Link href='/AI/TrafficLight'>
+              Traffic Light
+            </Link>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarSub>
@@ -46,42 +49,21 @@ export function CustomMenuBar() {
               </MenubarItem>
             </MenubarSubContent>
           </MenubarSub>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Link href='/AI/Emergency/'>Emergency</Link>
-          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       {/* Guard Post */}
-      {/* Monitoring | Find | view all */}
+      {/* Monitoring */}
       <MenubarMenu>
-        <MenubarTrigger>Guard Post</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>
-            <Link href='/GuardPost/Monitoring'>Monitoring</Link>
-          </MenubarItem>
-          <MenubarItem>
-            <Link href='/GuardPost/Find'>Find...</Link>
-          </MenubarItem>
-          <MenubarItem>
-            <Link href='/GuardPost/View'>All</Link>
-          </MenubarItem>
-        </MenubarContent>
+        <MenubarTrigger>
+          <Link href='/GuardPost'>Guard Post</Link>
+        </MenubarTrigger>
       </MenubarMenu>
       {/* Reports */}
       {/* Create | View */}
       <MenubarMenu>
-        <MenubarTrigger>Reports</MenubarTrigger>
-        <MenubarContent>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Link href='/Report/Create'>Create</Link>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Link href='/Report/View'>View</Link>
-          </MenubarItem>
-        </MenubarContent>
+        <MenubarTrigger>
+          <Link href='/Report'>Reports</Link>
+        </MenubarTrigger>
       </MenubarMenu>
     </Menubar>
   )
