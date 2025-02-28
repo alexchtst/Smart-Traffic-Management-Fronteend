@@ -38,9 +38,9 @@ const chartConfig = {
   },
 }
 
-export function Component() {
+export function CrowdChart() {
   return (
-    <Card className="w-1/2">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Line Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
