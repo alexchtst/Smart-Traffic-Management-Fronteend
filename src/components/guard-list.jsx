@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,23 +8,27 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
- 
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+
 // dummy data
 const tags = Array.from({ length: 50 }).map(
   (_, i, a) => `post-name-${a.length - i}`
-)
+);
 
 export function GuardList() {
   return (
     <Card className="w-full h-full">
       <CardHeader>
         <CardTitle>Guard List</CardTitle>
-        <CardDescription>Consequat officia ut dolor laboris cillum adipisicing eu incididunt do officia.</CardDescription>
+        <CardDescription>
+          Consequat officia ut dolor laboris cillum adipisicing eu incididunt do
+          officia.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form>
@@ -36,15 +40,20 @@ export function GuardList() {
           </div>
           <ScrollArea className="h-52 w-full rounded-md border">
             <div className="p-4">
-              <h4 className="mb-4 text-sm font-medium leading-none">Post Name</h4>
-              {tags.map((tag) => (
-                <div key={tag}>
-                  <div className="text-sm">
-                    {tag}
+              <h4 className="mb-4 text-sm font-medium leading-none">
+                Post Name
+              </h4>
+              <RadioGroup>
+                {tags.map((tag) => (
+                  <div key={tag}>
+                    <div className="flex items-center space-x-2 p-0.5">
+                      <RadioGroupItem value={tag} id={tag} />
+                      <Label htmlFor="r1">{tag}</Label>
+                    </div>
+                    <Separator className="my-2" />
                   </div>
-                  <Separator className="my-2" />
-                </div>
-              ))}
+                ))}
+              </RadioGroup>
             </div>
           </ScrollArea>
         </form>
@@ -53,8 +62,7 @@ export function GuardList() {
         <Button variant="outline">Find</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
-
 
 // export default GuardList;
