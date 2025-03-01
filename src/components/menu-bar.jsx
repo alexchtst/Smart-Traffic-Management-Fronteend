@@ -43,10 +43,6 @@ export function CustomMenuBar() {
               <MenubarItem>
                 <Link href='/AI/Historical/Summary'>Summary</Link>
               </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>
-                <Link href='/AI/Historical/Chart'>Chart</Link>
-              </MenubarItem>
             </MenubarSubContent>
           </MenubarSub>
         </MenubarContent>
