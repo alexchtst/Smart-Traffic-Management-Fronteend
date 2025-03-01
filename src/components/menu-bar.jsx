@@ -37,15 +37,15 @@ export function CustomMenuBar() {
           <MenubarSeparator />
           <MenubarSub>
             <MenubarSubTrigger>
-              <Link href='/AI/Historical'>Historical</Link>
+              Historical
             </MenubarSubTrigger>
             <MenubarSubContent>
               <MenubarItem>
-                <Link href='/AI/Historical/'>Summary</Link>
+                <Link href='/AI/Historical/Summary'>Summary</Link>
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem>
-                <Link href='/AI/Historical/'>Chart</Link>
+                <Link href='/AI/Historical/Chart'>Chart</Link>
               </MenubarItem>
             </MenubarSubContent>
           </MenubarSub>
