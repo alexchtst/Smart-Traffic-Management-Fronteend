@@ -23,7 +23,7 @@ export function ReportsTemplate() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <from>
+        <from type="submit">
           <div className="space-y-5">
             {/* title */}
             <div>
