@@ -23,7 +23,7 @@ export function ReportsTemplate() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <from type="submit">
+        <form type="submit">
           <div className="space-y-5">
             {/* title */}
             <div>
@@ -55,7 +55,7 @@ export function ReportsTemplate() {
               <Textarea id="summary" placeholder="Type your message here." />
             </div>
           </div>
-        </from>
+        </form>
       </CardContent>
     </Card>
   );

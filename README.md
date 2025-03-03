@@ -17,6 +17,7 @@ Smart Traffic Management Frontend adalah antarmuka pengguna untuk **Smart Traffi
 ![image](images_doc/guard-post-page.png)
 
 - 🚦 **AI | Trafic Light** – Memungkinkan operator untuk mengatur lampu lalu lintas secara manual atau otomatis.
+![image](images_doc/ai-traffic-light-page.png)
 
 - 📊 **AI | Summary** – Menyediakan histori dan analisis pola lalu lintas untuk perencanaan yang lebih baik.
 ![image](images_doc/ai-summary-page.png)
