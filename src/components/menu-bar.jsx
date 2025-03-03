@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Menubar,
@@ -10,57 +10,42 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/components/ui/menubar"
+} from "@/components/ui/menubar";
 
-import Link from 'next/link'
-  
+import Link from "next/link";
+
 export function CustomMenuBar() {
   return (
     <Menubar className="w-fit">
-      {/* MAP */}
       <MenubarMenu>
         <MenubarTrigger>
-          <Link href='/Map'>MAP</Link>
+          <Link href="/Map">MAP</Link>
         </MenubarTrigger>
       </MenubarMenu>
-      {/* AI */}
-      {/* Traffic Light | Historcal */}
-      <MenubarMenu>
-        <MenubarTrigger>AI</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem asChild>
-            {/* masih ada bug disini */}
-            <Link href='/AI/TrafficLight'>
-              Traffic Light
-            </Link>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarSub>
-            <MenubarSubTrigger>
-              Historical
-            </MenubarSubTrigger>
-            <MenubarSubContent>
-              <MenubarItem>
-                <Link href='/AI/Historical/Summary'>Summary</Link>
-              </MenubarItem>
-            </MenubarSubContent>
-          </MenubarSub>
-        </MenubarContent>
-      </MenubarMenu>
-      {/* Guard Post */}
-      {/* Monitoring */}
+
       <MenubarMenu>
         <MenubarTrigger>
-          <Link href='/GuardPost'>Guard Post</Link>
+          <Link href="/AI/TrafficLight">AI Traffic Light</Link>
         </MenubarTrigger>
       </MenubarMenu>
-      {/* Reports */}
-      {/* Create | View */}
+
       <MenubarMenu>
         <MenubarTrigger>
-          <Link href='/Report'>Reports</Link>
+          <Link href="/AI/Summary">AI Summary</Link>
+        </MenubarTrigger>
+      </MenubarMenu>
+      
+      <MenubarMenu>
+        <MenubarTrigger>
+          <Link href="/GuardPost">Guard Post</Link>
+        </MenubarTrigger>
+      </MenubarMenu>
+      
+      <MenubarMenu>
+        <MenubarTrigger>
+          <Link href="/Report">Reports</Link>
         </MenubarTrigger>
       </MenubarMenu>
     </Menubar>
-  )
+  );
 }
