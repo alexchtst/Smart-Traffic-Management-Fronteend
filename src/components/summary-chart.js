@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-
 import { useMemo, useState, useEffect } from "react";
-
-import { io } from "socket.io-client";
-
 import {
   Card,
   CardContent,
@@ -19,13 +15,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { io } from "socket.io-client";
 
 const chartConfig = {
   views: {
     label: "Page Views",
   },
   realtime: {
-    label: "Real Time Data",
+    label: "Real Time",
     color: "hsl(var(--chart-1))",
   },
   predictive: {
@@ -36,7 +33,9 @@ const chartConfig = {
 
 export function SummaryChart() {
   const [activeChart, setActiveChart] = useState("realtime");
+
   const [realtimeData, setRealtimeData] = useState([]);
+  const [predictiveData, setPredictiveData] = useState([]);
 
   useEffect(() => {
     const socket = io("http://127.0.0.1:5000", { transports: ["websocket"] });
@@ -46,29 +45,42 @@ export function SummaryChart() {
     });
 
     socket.on("crowd-realtime", (data) => {
-      console.log("📥 data from crowd-realtime:", data);
-      const extractedData = data?.data?.data ?? [];
-
-      // Simpan data ke state biar bisa ditampilkan
+      console.log("crowd", data.data);
+      const extractedData = (data?.data?.data ?? []).map((item) => ({
+        ...item,
+        type: "realtime",
+      }));
       setRealtimeData((prevData) => [...prevData, ...extractedData]);
-      // setRealtimeData((prevData) => [...prevData, data]);
     });
 
-    // Cleanup saat component unmount
+    socket.on("predictive-realtime", (data) => {
+      console.log("predictive", data.data);
+      const extractedData = (data?.data?.data ?? []).map((item) => ({
+        ...item,
+        type: "predictive",
+      }));
+      setPredictiveData(extractedData);
+      console.log()
+    });
+
     return () => {
       console.log("disconnect socket io");
       socket.disconnect();
     };
   }, []);
 
-  // ini untuk animasinya
   const total = useMemo(
     () => ({
-      realtime: realtimeData.reduce((acc, curr) => acc + curr.realtime, 0),
-      predictive: realtimeData.reduce((acc, curr) => acc + curr.predictive, 0),
+      realtime: realtimeData.reduce((acc, curr) => acc + (curr.val || 0), 0),
+      predictive: predictiveData.reduce(
+        (acc, curr) => acc + (curr.val || 0),
+        0
+      ),
     }),
-    [realtimeData]
+    [realtimeData, predictiveData]
   );
+
+  const activeData = activeChart === "realtime" ? realtimeData : predictiveData;
 
   return (
     <Card>
@@ -81,24 +93,21 @@ export function SummaryChart() {
           </CardDescription>
         </div>
         <div className="flex">
-          {["realtime", "predictive"].map((key) => {
-            const chart = key;
-            return (
-              <button
-                key={chart}
-                data-active={activeChart === chart}
-                className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
-                onClick={() => setActiveChart(chart)}
-              >
-                <span className="text-xs text-muted-foreground">
-                  {chartConfig[chart].label}
-                </span>
-                <span className="text-lg font-bold leading-none sm:text-3xl">
-                  {total[key].toLocaleString()}
-                </span>
-              </button>
-            );
-          })}
+          {["realtime", "predictive"].map((chart) => (
+            <button
+              key={chart}
+              data-active={activeChart === chart}
+              className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+              onClick={() => setActiveChart(chart)}
+            >
+              <span className="text-xs text-muted-foreground">
+                {chartConfig[chart].label}
+              </span>
+              <span className="text-lg font-bold leading-none sm:text-3xl">
+                {total[chart].toLocaleString()}
+              </span>
+            </button>
+          ))}
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
@@ -108,7 +117,7 @@ export function SummaryChart() {
         >
           <LineChart
             accessibilityLayer
-            data={realtimeData}
+            data={activeData}
             margin={{
               left: 12,
               right: 12,
@@ -123,9 +132,11 @@ export function SummaryChart() {
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
+                return date.toLocaleString("en-US", {
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true
                 });
               }}
             />
@@ -135,19 +146,20 @@ export function SummaryChart() {
                   className="w-[150px]"
                   nameKey="views"
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
+                    return new Date(value).toLocaleString("en-US", {
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true
                     });
                   }}
                 />
               }
             />
             <Line
-              dataKey={activeChart}
+              dataKey="val"
               type="monotone"
-              stroke={`var(--color-${activeChart})`}
+              stroke={chartConfig[activeChart].color}
               strokeWidth={2}
               dot={false}
             />
@@ -157,12 +169,3 @@ export function SummaryChart() {
     </Card>
   );
 }
-
-{/* <div>
-  <h2>Crowd Realtime Data</h2>
-  <ul>
-    {realtimeData.map((item, index) => (
-      <li key={index}>{JSON.stringify(item)}</li>
-    ))}
-  </ul>
-</div> */}
