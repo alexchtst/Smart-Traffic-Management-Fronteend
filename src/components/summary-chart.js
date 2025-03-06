@@ -42,25 +42,15 @@ export function SummaryChart() {
 
     socket.on("connect", () => {
       console.log("✅ success to connect to socket io");
-    });
+      socket.on("crowd-realtime", (data) => {
+        console.log("crowd", data.data);
+        setRealtimeData(data.data);
+      });
 
-    socket.on("crowd-realtime", (data) => {
-      console.log("crowd", data.data);
-      const extractedData = (data?.data?.data ?? []).map((item) => ({
-        ...item,
-        type: "realtime",
-      }));
-      setRealtimeData((prevData) => [...prevData, ...extractedData]);
-    });
-
-    socket.on("predictive-realtime", (data) => {
-      console.log("predictive", data.data);
-      const extractedData = (data?.data?.data ?? []).map((item) => ({
-        ...item,
-        type: "predictive",
-      }));
-      setPredictiveData(extractedData);
-      console.log()
+      socket.on("predictive-realtime", (data) => {
+        console.log("predictive", data.data);
+        setPredictiveData(data.data);
+      });
     });
 
     return () => {
@@ -105,6 +95,7 @@ export function SummaryChart() {
               </span>
               <span className="text-lg font-bold leading-none sm:text-3xl">
                 {total[chart].toLocaleString()}
+                {/* test */}
               </span>
             </button>
           ))}
@@ -133,10 +124,10 @@ export function SummaryChart() {
               tickFormatter={(value) => {
                 const date = new Date(value);
                 return date.toLocaleString("en-US", {
-                  day: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: true
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
                 });
               }}
             />
@@ -147,10 +138,10 @@ export function SummaryChart() {
                   nameKey="views"
                   labelFormatter={(value) => {
                     return new Date(value).toLocaleString("en-US", {
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
                     });
                   }}
                 />

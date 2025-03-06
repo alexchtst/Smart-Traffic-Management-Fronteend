@@ -9,7 +9,6 @@ const Page = () => {
         <SummaryChart />
       </div>
       <div className="md:w-[35%] md:py-[10vw] px-[2vw]">
-        {/* <GuardList /> */}
         <SummaryPanel />
       </div>
     </div>
