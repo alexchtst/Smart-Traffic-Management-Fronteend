@@ -31,12 +31,6 @@ export function CustomMenuBar() {
       
       <MenubarMenu>
         <MenubarTrigger>
-          <Link href="/GuardPost">Guard Post</Link>
-        </MenubarTrigger>
-      </MenubarMenu>
-      
-      <MenubarMenu>
-        <MenubarTrigger>
           <Link href="/Report">Reports</Link>
         </MenubarTrigger>
       </MenubarMenu>

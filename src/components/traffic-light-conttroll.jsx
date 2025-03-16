@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { Card, CardContent, CardHeader } from "./ui/card";
 
 export function TrafficLightConttroll() {
   return (
@@ -20,6 +19,7 @@ export function TrafficLightConttroll() {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Status</SelectLabel>
+          <SelectItem value="auto">Auto</SelectItem>
           <SelectItem value="red">Red</SelectItem>
           <SelectItem value="red5">Red 5 mins...</SelectItem>
           <SelectItem value="green">Green</SelectItem>

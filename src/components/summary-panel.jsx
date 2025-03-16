@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Label } from "./ui/label";
+import { Separator } from "./ui/separator";
 
 export function SummaryPanel() {
   return (
@@ -20,8 +20,20 @@ export function SummaryPanel() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-[1vw]">
-          <Input id="postguard" placeholder="find the post guard name here" />
-          <Button className="w-full">Search</Button>
+          <Label>
+            Ullamco aliquip consequat excepteur ut consequat aliquip enim
+            consectetur commodo eu non proident veniam.
+          </Label>
+          <Separator className="my-4" />
+          <Label>
+            Voluptate eiusmod veniam est ullamco nulla laboris reprehenderit
+            reprehenderit elit mollit minim dolore mollit.
+          </Label>
+          <Separator className="my-4" />
+          <Label>
+            Labore occaecat elit fugiat veniam esse incididunt deserunt aliqua
+            ullamco esse dolore aliquip.
+          </Label>
         </CardContent>
       </Card>
     </div>

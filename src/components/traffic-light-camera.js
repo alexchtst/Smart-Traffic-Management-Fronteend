@@ -17,10 +17,11 @@ export function TrafficLightCamera() {
         value={activeTab}
         onValueChange={setActiveTab}
       >
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="camera1">Camera 1</TabsTrigger>
           <TabsTrigger value="camera2">Camera 2</TabsTrigger>
           <TabsTrigger value="camera3">Camera 3</TabsTrigger>
+          <TabsTrigger value="camera4">Camera 4</TabsTrigger>
         </TabsList>
 
         {/* Camera 1 */}
@@ -36,6 +37,11 @@ export function TrafficLightCamera() {
         {/* Camera 3 */}
         <TabsContent value="camera3">
           <CameraCard title="Camera 3" />
+        </TabsContent>
+
+        {/* Camera 4 */}
+        <TabsContent value="camera4">
+          <CameraCard title="Camera 4" />
         </TabsContent>
       </Tabs>
     </div>
