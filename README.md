@@ -8,13 +8,9 @@ Smart Traffic Management Frontend adalah antarmuka pengguna untuk **Smart Traffi
 - **Tailwind CSS** – Framework styling untuk tampilan yang modern dan fleksibel.
 - **Leaflet.js** – Library untuk peta interaktif.
 
-
 ## ✨ Pages
 - 🌍 **Map** – Menampilkan post guard dan dapat memantau kondisi lalu lintas.
 ![image](images_doc/map-page.png)
-
-- 📌 **Post Guard** – Menyajikan data lalu lintas secara real-time melalui visualisasi grafik.
-![image](images_doc/guard-post-page.png)
 
 - 🚦 **AI | Trafic Light** – Memungkinkan operator untuk mengatur lampu lalu lintas secara manual atau otomatis.
 ![image](images_doc/ai-traffic-light-page.png)
