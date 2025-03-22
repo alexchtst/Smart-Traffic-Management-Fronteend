@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     name: "",
-    xpos: null,
-    ypos: null,
+    // set koordinat deket depok (yogya bukan yang di ui)
+    xpos: -7.758315006983358,
+    ypos: 110.39739904264715,
     isChoose: false,
 }
 
