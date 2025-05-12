@@ -26,14 +26,6 @@ export function ReportsTemplate() {
       name: "poin 2",
       content: "Laboris do aliqua eiusmod esse culpa excepteur.",
     },
-    {
-      name: "poin 3",
-      content: "Laboris do aliqua eiusmod esse culpa excepteur.",
-    },
-    {
-      name: "poin 4",
-      content: "Laboris do aliqua eiusmod esse culpa excepteur.",
-    },
   ]);
   const [additionalNotes, setAdditionalNotes] = useState([
     {
@@ -44,19 +36,44 @@ export function ReportsTemplate() {
       name: "notes 2",
       content: "Laboris do aliqua eiusmod esse culpa excepteur.",
     },
-    {
-      name: "notes 3",
-      content: "Laboris do aliqua eiusmod esse culpa excepteur.",
-    },
-    {
-      name: "notes 4",
-      content: "Laboris do aliqua eiusmod esse culpa excepteur.",
-    },
   ]);
 
   const [summary, setSummary] = useState(
     "Cupidatat sit veniam elit duis et mollit eu. Aliqua esse nostrud veniam occaecat minim laboris tempor sunt aliqua aliqua Lorem. Minim irure incididunt cupidatat magna id exercitation non aliqua. Fugiat ullamco elit id sint reprehenderit duis eu consequat veniam magna sunt pariatur tempor enim. Nisi elit consequat irure in aliquip ea nulla in proident consectetur."
   );
+
+  const handleAddPoint = () => {
+    setPoints([...points, { name: `poin ${points.length + 1}`, content: "" }]);
+  };
+
+  const handleChangePoint = (idx, value) => {
+    const newPoints = [...points];
+    newPoints[idx].content = value;
+    setPoints(newPoints);
+  };
+
+  const handleDeletePoint = (idx) => {
+    const newPoints = points.filter((_, i) => i !== idx);
+    setPoints(newPoints);
+  };
+
+  const handleAddNote = () => {
+    setAdditionalNotes([
+      ...additionalNotes,
+      { name: `notes ${additionalNotes.length + 1}`, content: "" },
+    ]);
+  };
+
+  const handleChangeNote = (idx, value) => {
+    const newNotes = [...additionalNotes];
+    newNotes[idx].content = value;
+    setAdditionalNotes(newNotes);
+  };
+
+  const handleDeleteNote = (idx) => {
+    const newNotes = additionalNotes.filter((_, i) => i !== idx);
+    setAdditionalNotes(newNotes);
+  };
 
   return (
     <Card>
@@ -81,28 +98,64 @@ export function ReportsTemplate() {
               {/* points */}
               <div>
                 {points.map((point, idx) => (
-                  <div key={idx}>
-                    <Label htmlFor={point.name}>{point.name}</Label>
-                    <Input id={point.name} placeholder={point.content} />
+                  <div key={idx} className="flex items-center gap-2 mb-2">
+                    <Label className="hidden md:flex" htmlFor={point.name}>
+                      {point.name}
+                    </Label>
+                    <Input
+                      id={point.name}
+                      placeholder={point.content || "add something"}
+                      onChange={(e) => handleChangePoint(idx, e.target.value)}
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={() => handleDeletePoint(idx)}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 ))}
-                <Button className="my-2 w-full">Add Points</Button>
+                <Button
+                  type="button"
+                  className="my-2 w-full"
+                  onClick={handleAddPoint}
+                >
+                  Add Point
+                </Button>
               </div>
 
               {/* additional notes */}
               <div>
                 {additionalNotes.map((additionalNote, idx) => (
-                  <div key={idx}>
-                    <Label htmlFor={additionalNote.name}>
+                  <div key={idx} className="flex items-center gap-2 mb-2">
+                    <Label
+                      className="hidden md:flex"
+                      htmlFor={additionalNote.name}
+                    >
                       {additionalNote.name}
                     </Label>
                     <Input
+                      onChange={(e) => handleChangeNote(idx, e.target.value)}
                       id={additionalNote.name}
-                      placeholder={additionalNote.content}
+                      placeholder={additionalNote.content || "add something"}
                     />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={() => handleDeleteNote(idx)}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 ))}
-                <Button className="my-2 w-full">Add Points</Button>
+                <Button
+                  type="button"
+                  className="my-2 w-full"
+                  onClick={handleAddNote}
+                >
+                  Add Note
+                </Button>
               </div>
             </div>
             {/* left */}
@@ -118,8 +171,10 @@ export function ReportsTemplate() {
                 <Label htmlFor="summary">Summary</Label>
                 <Textarea
                   id="summary"
-                  placeholder={summary}
-                  className="h-fit"
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  placeholder="Masukkan ringkasan laporan di sini..."
+                  className="h-32 resize-y"
                 />
               </div>
             </div>

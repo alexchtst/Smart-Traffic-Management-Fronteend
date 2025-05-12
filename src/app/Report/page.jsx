@@ -1,4 +1,3 @@
-import { RegionDeviceTable } from "@/components/regiondevices-table";
 import { ReportsTemplate } from "@/components/reports-template";
 import React from "react";
 
