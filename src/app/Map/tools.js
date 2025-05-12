@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function FetchLocation() {
-    const uri = "http://127.0.0.1:5000/region/1"
+    const uri = "http://127.0.0.1:5000/region"
 
     try {
         const datafetch = await axios.get(uri);

@@ -6,7 +6,7 @@ export const AppContext = createContext();
 
 export default function AppProvider ({ children }) {
   const [guardpostdata, setGuardpostdata] = useState({
-    name: null,
+    name: 'default name',
     xpos: -7.758315006983358,
     ypos: 110.39739904264715,
     isChoose: false,
