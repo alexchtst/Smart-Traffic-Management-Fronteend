@@ -5,8 +5,6 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppProvider ({ children }) {
-  const [user, setUser] = useState('contoh user');
-
   const [guardpostdata, setGuardpostdata] = useState({
     name: null,
     xpos: -7.758315006983358,
