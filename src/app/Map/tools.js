@@ -15,5 +15,21 @@ export async function FetchLocation() {
     } catch (error) {
         throw error
     }
-    
+}
+
+export async function FetchGuardPost() {
+    const uri = "http://127.0.0.1:5000/guardpost"
+
+    try {
+        const datafetch = await axios.get(uri);
+        if (datafetch.status !== 200){
+            return {
+                msg: 'gagal mengambil data'
+            }
+        } else {
+            return datafetch.data
+        }
+    } catch (error) {
+        throw error
+    }
 }

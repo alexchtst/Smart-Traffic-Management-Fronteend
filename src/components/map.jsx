@@ -7,7 +7,6 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 import { useMap } from "react-leaflet";
-import { AppContext } from "@/context/AppContext";
 import { PopupCard } from "./popup-card";
 
 // Dynamically import Leaflet components to disable SSR
@@ -43,19 +42,16 @@ const ZoomLogger = () => {
     };
   }, [map]);
 
-  return null; // This component only adds event listeners
+  return null;
 };
 
-const Map = () => {
-  const { guardpostdata } = useContext(AppContext);
-
+const Map = ({ guardposts = [] }) => {
   return (
     <div className="w-full h-full">
       <MapContainer
-        center={[guardpostdata.xpos, guardpostdata.ypos]}
-        // center={[-7.789047490723618, 110.43031471401336]}
-        zoom={13}
-        zoomControl={false} // Disable default controls
+        center={[-6.195038424697565, 106.82294134838708]}
+        zoom={16}
+        zoomControl={false}
         scrollWheelZoom={false}
         doubleClickZoom={false}
         style={{ height: "100%", width: "100%" }}
@@ -64,24 +60,17 @@ const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[-7.758315006983358, 110.39739904264715]}>
-          <Popup>
-            <PopupCard
-              name={"test position 1"}
-              lat={-7.758315006983358}
-              long={110.39739904264715}
-            />
-          </Popup>
-        </Marker>
-        <Marker position={[-7.789047490723618, 110.43031471401336]}>
-          <Popup>
-            <PopupCard
-              name={guardpostdata.name}
-              lat={-7.789047490723618}
-              long={110.43031471401336}
-            />
-          </Popup>
-        </Marker>
+        {guardposts.map((post) => (
+          <Marker position={[post.lat, post.long]} key={post.id}>
+            <Popup>
+              <PopupCard
+                name={post.name}
+                lat={post.lat}
+                long={post.long}
+              />
+            </Popup>
+          </Marker>
+        ))}
         <ZoomControl position="bottomleft" />
         <ZoomLogger />
       </MapContainer>
