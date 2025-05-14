@@ -1,6 +1,14 @@
+'use client'
+
 import { EmergencyControllPanel } from "@/components/emergency-controll-panel";
-import { TrafficLightCamera } from "@/components/traffic-light-camera";
 import React from "react";
+
+import dynamic from "next/dynamic";
+
+const TrafficLightCamera = dynamic(
+  () => import("@/components/traffic-light-camera"),
+  { ssr: false }
+);
 
 const Page = () => {
   return (
