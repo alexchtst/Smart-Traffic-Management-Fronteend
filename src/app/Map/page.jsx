@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { FetchGuardPost, FetchLocation } from "./tools";
+import { FetchGuardPost } from "@/tools/apitools";
 
 const Map = dynamic(() => import("../../components/map"), { ssr: false });
 

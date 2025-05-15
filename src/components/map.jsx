@@ -8,6 +8,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 
 import { useMap } from "react-leaflet";
 import { PopupCard } from "./popup-card";
+import { AppContext } from "@/context/AppContext";
 
 // Dynamically import Leaflet components to disable SSR
 const MapContainer = dynamic(
@@ -45,7 +46,27 @@ const ZoomLogger = () => {
   return null;
 };
 
+const MapCenterUpdater = () => {
+  const { selectedRegion } = useContext(AppContext);
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectedRegion && selectedRegion.length > 0) {
+      const { lat, long } = selectedRegion[0]; // ambil posisi pertama
+      map.flyTo([lat, long], 16); // pindah ke lokasi dengan zoom level 17
+    }
+  }, [selectedRegion, map]);
+
+  return null;
+};
+
 const Map = ({ guardposts = [] }) => {
+  // const { selectedRegion } = useContext(AppContext);
+
+  // useEffect(() => {
+  //   console.log(selectedRegion);
+  // });
+
   return (
     <div className="w-full h-full">
       <MapContainer
@@ -63,16 +84,13 @@ const Map = ({ guardposts = [] }) => {
         {guardposts.map((post) => (
           <Marker position={[post.lat, post.long]} key={post.id}>
             <Popup>
-              <PopupCard
-                name={post.name}
-                lat={post.lat}
-                long={post.long}
-              />
+              <PopupCard name={post.name} lat={post.lat} long={post.long} />
             </Popup>
           </Marker>
         ))}
         <ZoomControl position="bottomleft" />
         <ZoomLogger />
+        <MapCenterUpdater /> {/* ← Tambahkan ini */}
       </MapContainer>
     </div>
   );
