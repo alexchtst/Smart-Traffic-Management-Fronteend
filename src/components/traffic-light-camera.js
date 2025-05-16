@@ -10,7 +10,7 @@ import Image from "next/image";
 // Ganti URL sesuai backend Flask-mu
 const socket = io("http://localhost:5000", { transports: ["websocket"] });
 
-export function TrafficLightCamera() {
+const Trafficlightcamera = () => {
   const [activeTab, setActiveTab] = useState("camera1");
 
   return (
@@ -45,41 +45,44 @@ export function TrafficLightCamera() {
 }
 
 function CameraCard({ title, socket }) {
-  const videoRef = useRef < HTMLVideoElement > null;
-  const canvasRef = useRef < HTMLCanvasElement > null;
-  const [frame, setFrame] = (useState < string) | (null > null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [frame, setFrame] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      setVideoFile(videoURL);
+    }
+  };
+
+  useEffect(() => {
+    if (videoFile && videoRef.current) {
+      videoRef.current.src = videoFile;
+      videoRef.current.play();
+    }
+  }, [videoFile]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const constraints = {
-      video: {
-        width: 640,
-        height: 360,
-      },
+    const sendFrame = () => {
+      if (!videoRef.current || !canvasRef.current) return;
+      const ctx = canvasRef.current.getContext("2d");
+      if (!ctx) return;
+
+      ctx.drawImage(videoRef.current, 0, 0, 640, 360);
+      const imageData = canvasRef.current.toDataURL("image/jpeg");
+      socket.emit("video_frame", { image: imageData });
     };
 
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      const video = videoRef.current;
-      if (video) {
-        video.srcObject = stream;
-        video.play();
+    const interval = setInterval(sendFrame, 500);
+    return () => clearInterval(interval);
+  }, [socket]);
 
-        const sendFrame = () => {
-          if (!video || !canvasRef.current) return;
-          const ctx = canvasRef.current.getContext("2d");
-          if (!ctx) return;
-
-          ctx.drawImage(video, 0, 0, 640, 360);
-          const imageData = canvasRef.current.toDataURL("image/jpeg");
-          socket.emit("video_frame", { image: imageData });
-        };
-
-        const interval = setInterval(sendFrame, 500);
-        return () => clearInterval(interval);
-      }
-    });
-
+  useEffect(() => {
     socket.on("detection_result", (data) => {
       if (data.annotated_frame) {
         setFrame(data.annotated_frame);
@@ -102,7 +105,18 @@ function CameraCard({ title, socket }) {
           className="bg-muted flex items-center justify-center"
         >
           <div className="relative w-full h-full">
-            <video ref={videoRef} className="hidden" width={640} height={360} />
+            <input
+              type="file"
+              accept="video/*"
+              onChange={handleFileChange}
+              className="absolute top-[41%] left-[41%] z-10"
+            />
+            <video
+              ref={videoRef}
+              className="hidden"
+              width={640}
+              height={360}
+            />
             <canvas
               ref={canvasRef}
               className="hidden"
@@ -130,3 +144,5 @@ function CameraCard({ title, socket }) {
     </Card>
   );
 }
+
+export default Trafficlightcamera;

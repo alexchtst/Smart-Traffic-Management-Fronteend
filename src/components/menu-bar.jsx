@@ -29,11 +29,11 @@ export function CustomMenuBar() {
         </MenubarTrigger>
       </MenubarMenu>
       
-      <MenubarMenu>
+      {/* <MenubarMenu>
         <MenubarTrigger>
           <Link href="/Report">Reports</Link>
         </MenubarTrigger>
-      </MenubarMenu>
+      </MenubarMenu> */}
     </Menubar>
   );
 }
