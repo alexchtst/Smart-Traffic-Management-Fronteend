@@ -39,7 +39,7 @@ export function SummaryChart() {
   const [predictiveData, setPredictiveData] = useState([]);
 
   useEffect(() => {
-    const socket = io("http://127.0.0.1:5000", { transports: ["websocket"] });
+    const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports: ["websocket"] });
 
     socket.on("connect", () => {
       console.log("✅ success to connect to socket io");

@@ -13,26 +13,31 @@ export function SummaryPanel() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-[5vw] md:text-[3vw]">Find</CardTitle>
+          <CardTitle className="text-[5vw] md:text-[2vw]">
+            Pick Hour Vehicle Count
+          </CardTitle>
           <CardDescription>
-            Non quis voluptate commodo anim fugiat nisi.Sunt magna veniam et
-            cillum occaecat ipsum.
+            Statistik jumlah kendaraan yang melintas berdasarkan jam pilihan.
+            Gunakan data ini untuk analisis lalu lintas dan perencanaan
+            transportasi.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-[1vw]">
           <Label>
-            Ullamco aliquip consequat excepteur ut consequat aliquip enim
-            consectetur commodo eu non proident veniam.
+            Data ini menunjukkan rata-rata kendaraan yang melintas pada jam
+            sibuk pagi hari (06:00 - 09:00).
           </Label>
           <Separator className="my-4" />
+
           <Label>
-            Voluptate eiusmod veniam est ullamco nulla laboris reprehenderit
-            reprehenderit elit mollit minim dolore mollit.
+            Grafik berikut menampilkan tren volume kendaraan selama jam kerja
+            (09:00 - 17:00), cocok untuk kebutuhan pengaturan lampu lalu lintas.
           </Label>
           <Separator className="my-4" />
+
           <Label>
-            Labore occaecat elit fugiat veniam esse incididunt deserunt aliqua
-            ullamco esse dolore aliquip.
+            Waktu malam (20:00 - 23:00) menunjukkan penurunan signifikan dalam
+            lalu lintas, berguna untuk maintenance jalan dan patroli.
           </Label>
         </CardContent>
       </Card>

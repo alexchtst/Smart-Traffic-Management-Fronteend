@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 import Image from "next/image";
 
 // Ganti URL sesuai backend Flask-mu
-const socket = io("http://localhost:5000", { transports: ["websocket"] });
+const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports: ["websocket"] });
 
 const Trafficlightcamera = () => {
   const [activeTab, setActiveTab] = useState("camera1");

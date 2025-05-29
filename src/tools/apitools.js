@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function FetchLocation() {
-    const uri = "http://127.0.0.1:5000/region"
+    const uri = `${process.env.NEXT_PUBLIC_API_URL}/region`
 
     try {
         const datafetch = await axios.get(uri);
@@ -18,7 +18,7 @@ export async function FetchLocation() {
 }
 
 export async function FetchGuardPost() {
-    const uri = "http://127.0.0.1:5000/guardpost"
+    const uri = `${process.env.NEXT_PUBLIC_API_URL}/guardpost`
 
     try {
         const datafetch = await axios.get(uri);

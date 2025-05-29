@@ -17,6 +17,3 @@ Smart Traffic Management Frontend adalah antarmuka pengguna untuk **Smart Traffi
 
 - 📊 **AI | Summary** – Menyediakan histori dan analisis pola lalu lintas untuk perencanaan yang lebih baik.
 ![image](images_doc/ai-summary-page.png)
-
-- 🔔 **Reports** – Membuat reports dari keadaan lalu lintas.
-![image](images_doc/report-page.png)
